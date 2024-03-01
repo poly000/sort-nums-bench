@@ -20,7 +20,6 @@ tcmalloc2 = { version = "0.1.2", optional = true }
 
 [profile.bench]
 opt-level = 3
-panic = "abort"
 lto = true
 
 [dev-dependencies]
