@@ -3,7 +3,7 @@ extern crate test;
 
 #[cfg(test)]
 mod tests {
-    use std::collections::BTreeSet;
+    use std::{collections::BTreeSet, ops::Range, sync::OnceLock};
 
     use rand::random;
     use test::Bencher;
@@ -13,30 +13,34 @@ mod tests {
         NUMS_AMOUNT.parse().ok().unwrap()
     }
 
-    #[bench]
-    fn bench_vec_sort(b: &mut Bencher) {
-        let rand_nums = (0..=nums_amount()).map(|_| random()).collect::<Vec<u32>>();
-        b.iter(|| {
-            let mut vec = rand_nums.iter().collect::<Vec<_>>();
-            vec.sort();
-        });
+    fn random_range() -> Range<u32> {
+        static RANGE: OnceLock<Range<u32>> = OnceLock::new();
+        RANGE
+            .get_or_init(|| {
+                let upper = random::<u32>() / 2 + u32::MAX / 2;
+                let lower = random::<u32>() / 2;
+                lower..upper
+            })
+            .clone()
     }
 
     #[bench]
-    fn bench_vec_sort_unstable(b: &mut Bencher) {
+    fn bench_vec_sort_unstable_search(b: &mut Bencher) {
+        use binary_range_search::search_by;
+        let range = random_range();
+
         let rand_nums = (0..=nums_amount()).map(|_| random()).collect::<Vec<u32>>();
-        b.iter(|| {
-            let mut vec = rand_nums.iter().collect::<Vec<_>>();
-            vec.sort_unstable();
-        });
+        let mut vec = rand_nums.into_iter().collect::<Vec<_>>();
+        vec.sort_unstable();
+        b.iter(|| search_by(&vec, range.clone(), |x, y| x < y));
     }
 
     #[bench]
-    fn bench_btree_collect(b: &mut Bencher) {
+    fn bench_btree_collect_search(b: &mut Bencher) {
         let rand_nums = (0..=nums_amount()).map(|_| random()).collect::<Vec<u32>>();
-        b.iter(|| {
-            let _tree = rand_nums.iter().collect::<BTreeSet<_>>();
-        });
+        let tree = rand_nums.iter().collect::<BTreeSet<_>>();
+        let range = random_range();
+        b.iter(|| tree.range(range.clone()));
     }
 }
 

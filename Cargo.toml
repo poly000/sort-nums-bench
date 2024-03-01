@@ -24,6 +24,7 @@ panic = "abort"
 lto = true
 
 [dev-dependencies]
+binary_range_search = "0.1.0"
 rand = "0.8.5"
 
 [features]
