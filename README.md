@@ -31,53 +31,41 @@ CPU: 12th Gen Intel i7-12700H (20) @ 4.600GHz
 Memory: DDR5 8GB Dual-Channel (M425R1GB4BB0-CQKOL)
 ```
 
-`RAND_NUMS=1024`
+`RAND_NUMS=10000000`
 
 mimalloc:
 ```
-test tests::bench_btree_collect     ... bench:      31,213 ns/iter (+/- 293)
-test tests::bench_vec_sort          ... bench:      26,919 ns/iter (+/- 129)
-test tests::bench_vec_sort_unstable ... bench:       9,276 ns/iter (+/- 446)
+test tests::bench_btree_collect_search     ... bench:          64 ns/iter (+/- 44)
+test tests::bench_vec_sort_unstable_search ... bench:          45 ns/iter (+/- 0)
 ```
-
 tcmalloc:
 ```
-test tests::bench_btree_collect     ... bench:      31,366 ns/iter (+/- 394)
-test tests::bench_vec_sort          ... bench:      27,438 ns/iter (+/- 74)
-test tests::bench_vec_sort_unstable ... bench:      10,006 ns/iter (+/- 110)
+test tests::bench_btree_collect_search     ... bench:          86 ns/iter (+/- 0)
+test tests::bench_vec_sort_unstable_search ... bench:          45 ns/iter (+/- 0)
 ```
-
 jemalloc:
 ```
-test tests::bench_btree_collect     ... bench:      32,808 ns/iter (+/- 225)
-test tests::bench_vec_sort          ... bench:      28,886 ns/iter (+/- 163)
-test tests::bench_vec_sort_unstable ... bench:       9,695 ns/iter (+/- 220)
+test tests::bench_btree_collect_search     ... bench:          73 ns/iter (+/- 0)
+test tests::bench_vec_sort_unstable_search ... bench:          52 ns/iter (+/- 0)
 ```
-
 snmalloc:
 ```
-test tests::bench_btree_collect     ... bench:      32,190 ns/iter (+/- 219)
-test tests::bench_vec_sort          ... bench:      28,850 ns/iter (+/- 178)
-test tests::bench_vec_sort_unstable ... bench:       8,971 ns/iter (+/- 155)
+test tests::bench_btree_collect_search     ... bench:          81 ns/iter (+/- 0)
+test tests::bench_vec_sort_unstable_search ... bench:          48 ns/iter (+/- 0)
 ```
-
 ferroc:
 ```
-test tests::bench_btree_collect     ... bench:      33,395 ns/iter (+/- 145)
-test tests::bench_vec_sort          ... bench:      29,255 ns/iter (+/- 146)
-test tests::bench_vec_sort_unstable ... bench:       9,765 ns/iter (+/- 166)
+test tests::bench_btree_collect_search     ... bench:          89 ns/iter (+/- 0)
+test tests::bench_vec_sort_unstable_search ... bench:          45 ns/iter (+/- 0)
 ```
-
 rpmalloc:
 ```
-test tests::bench_btree_collect     ... bench:      31,330 ns/iter (+/- 145)
-test tests::bench_vec_sort          ... bench:      27,132 ns/iter (+/- 101)
-test tests::bench_vec_sort_unstable ... bench:       9,201 ns/iter (+/- 326)
+test tests::bench_btree_collect_search     ... bench:          87 ns/iter (+/- 0)
+test tests::bench_vec_sort_unstable_search ... bench:          43 ns/iter (+/- 1)
+```
+ptmalloc:
+```
+test tests::bench_btree_collect_search     ... bench:          66 ns/iter (+/- 0)
+test tests::bench_vec_sort_unstable_search ... bench:          44 ns/iter (+/- 1)
 ```
 
-PtMalloc:
-```
-test tests::bench_btree_collect     ... bench:      33,449 ns/iter (+/- 275)
-test tests::bench_vec_sort          ... bench:      27,019 ns/iter (+/- 121)
-test tests::bench_vec_sort_unstable ... bench:       8,602 ns/iter (+/- 518)
-```
