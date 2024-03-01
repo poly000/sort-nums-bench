@@ -1,0 +1,32 @@
+[package]
+name = "sort-nums-bench"
+version = "0.1.0"
+edition = "2021"
+license = "MIT"
+authors = ["poly000"]
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+ferroc = { version = "0.3.0", optional = true }
+jemallocator = { version = "0.5.4", optional = true }
+mimalloc = { version = "0.1.39", optional = true }
+rpmalloc = { version = "0.2.2", optional = true, features = ["global_cache"] }
+snmalloc-rs = { version = "0.3.5", optional = true, features = [
+    "native-cpu",
+    "lto",
+] }
+tcmalloc2 = { version = "0.1.2", optional = true }
+
+[dev-dependencies]
+rand = "0.8.5"
+
+[features]
+# replace default Alloc implementation
+alloc = []
+mimalloc = ["dep:mimalloc", "alloc"]
+tcmalloc = ["dep:tcmalloc2", "alloc"]
+jemalloc = ["dep:jemallocator", "alloc"]
+snmalloc = ["dep:snmalloc-rs", "alloc"]
+ferroc = ["dep:ferroc", "alloc"]
+rpmalloc = ["dep:rpmalloc", "alloc"]
