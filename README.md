@@ -11,7 +11,7 @@ v.s.
 let s = iter.collect::<BTreeSet<_>>();
 ```
 
-The later is significantly faster (unless input are mostly `Eq`), because:
+The former is significantly faster (unless input are mostly `Eq`), because:
 
 1. Rust's `sort_unstable` sorts items in-place, avoids bunch of heap allocations, at the cost of stablity.
 2. Constructing a BTreeSet however invokes lots of heap allocations
