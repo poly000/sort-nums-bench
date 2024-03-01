@@ -18,6 +18,11 @@ snmalloc-rs = { version = "0.3.5", optional = true, features = [
 ] }
 tcmalloc2 = { version = "0.1.2", optional = true }
 
+[profile.bench]
+opt-level = 3
+panic = "abort"
+lto = true
+
 [dev-dependencies]
 rand = "0.8.5"
 
